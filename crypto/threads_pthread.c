@@ -180,8 +180,13 @@ static pthread_once_t fork_once_control = PTHREAD_ONCE_INIT;
 
 static void fork_once_func(void)
 {
+    /* Chaquopy: Crystax incorrectly omits pthread_atfork below API 21, even though it's
+       actually available from API 12. Older versions of the Google NDK have the same bug: see
+       https://github.com/openssl/openssl/issues/3901.
+
     pthread_atfork(OPENSSL_fork_prepare,
                    OPENSSL_fork_parent, OPENSSL_fork_child);
+    */
 }
 # endif
 
